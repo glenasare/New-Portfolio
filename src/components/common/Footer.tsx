@@ -1,5 +1,4 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
+
 import Divider from '@mui/material/Divider';
 function Footer() {
   return (

@@ -5,14 +5,14 @@ import {
   HomeMain,
   HomeStyle,
   SocialMedia,
-  WelcomeText,
+
   WelcomeTextStyle,
 } from "./Home.style";
 import { BsGithub, BsLinkedin } from "react-icons/bs";
 import codingImage from "../common/images/codingImage.jpg";
 import Button from "@mui/material/Button";
 import Typed from "react-typed";
-import About from "../About/About";
+
 
 function Home(): JSX.Element {
   const githubRouter = () => {
