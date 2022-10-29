@@ -17,7 +17,7 @@ export const NavMain = styled.div`
     width: 100%;
     background-color: #fff;
     top: 0;
-    position: relative;
+    position: fixed;
     z-index: 99;
     overflow:hidden;
     
@@ -27,7 +27,7 @@ export const NavMain = styled.div`
     width: 100%;
     background-color: #fff;
     top: 0;
-    position: relative;
+    position: fixed;
     z-index: 99;
    overflow:hidden;
   }
