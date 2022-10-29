@@ -83,7 +83,7 @@ function Contact() {
                 <TextField
                   id="outlined-basic"
                   type="email"
-                  name="user_email"
+                  name="email"
                   label="Email"
                   variant="outlined"
                   sx={{ width: "100%" }}
