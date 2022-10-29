@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { Link, animateScroll as scroll } from "react-scroll";
+import { Link} from "react-scroll";
 
 export const NavMain = styled.div`
   height: 90px;

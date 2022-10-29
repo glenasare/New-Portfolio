@@ -1,6 +1,5 @@
 import React from "react";
 import { Logo, NavLi, NavMain, NavMenu, NavUl } from "./Navbar.style";
-import { Squash as Hamburger, Squash } from "hamburger-react";
 import HamburgerMenu from "./HamburgerMenu";
 
 function Navbar() {
