@@ -8,6 +8,7 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { GrSend } from "react-icons/gr";
 import emailjs from "@emailjs/browser";
+import { Form } from "./Contact.style";
 
 function Contact() {
   const [notification, setNotification] = React.useState("");
@@ -36,14 +37,14 @@ function Contact() {
       );
   };
   return (
-    <div style={{ background: "#000", height: "60vh" }} id="contact">
-      <form
+    <div id="contact" style={{background:"#1B1A17"}}>
+      <Form
         ref={form}
         onSubmit={sendEmail}
-        style={{ justifyContent: "center", display: "flex", padding: "100px" }}
+      
       >
-        <Card sx={{ justifyContent: "center", display: "flex" }}>
-          <Box sx={{ width: "50vw" }}>
+        <Card sx={{ justifyContent: "center", display: "flex",  }}>
+          <Box sx={{ width: "100%" }}>
             <h3
               style={{
                 justifyContent: "center",
@@ -114,7 +115,7 @@ function Contact() {
             </Grid>
           </Box>
         </Card>
-      </form>
+      </Form>
     </div>
   );
 }

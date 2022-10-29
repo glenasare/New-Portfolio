@@ -85,7 +85,7 @@ export default function HamburgerMenu() {
       <List>
       <NavLi
           style={{ display: "flex" }}
-          to="contact-me"
+          to="contact"
           activeClass="active"
           spy={true}
           smooth={true}
