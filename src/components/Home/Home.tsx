@@ -24,7 +24,7 @@ function Home(): JSX.Element {
   };
   const downloadResume = () => {
     window.location.href =
-      "https://drive.google.com/uc?export=download&id=19ChLfuqetKn-G-MinXJTJOh2AK6Fw3aa";
+      "https://drive.google.com/uc?export=download&id=1QFUoYdvs59jU4N_8kzQz-G3-3ZnGd0hP";
   };
   ///19ChLfuqetKn-G-MinXJTJOh2AK6Fw3a
   return (
