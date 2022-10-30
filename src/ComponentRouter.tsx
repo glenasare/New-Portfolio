@@ -23,9 +23,9 @@ function ComponentRouter() {
         <Routes>
           <Route path="/" element={<Projects />} />
         </Routes>
-        {/* <Routes>
+        <Routes>
           <Route path="/" element={<Contact />} />
-        </Routes> */}
+        </Routes>
         <Footer/>
       </Router>
     </div>
