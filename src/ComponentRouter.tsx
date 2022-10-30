@@ -6,6 +6,7 @@ import Navbar from "./components/common/Navbar";
 import Projects from "./components/Projects/Projects";
 
 import Footer from "./components/common/Footer";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Contact from "./components/Contact/Contact";
 
 function ComponentRouter() {
