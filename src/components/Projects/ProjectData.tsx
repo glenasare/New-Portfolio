@@ -36,7 +36,7 @@ export const Data = [
     live: ""
   },
   {
-    project_name: "FirstPortfolio ",
+    project_name: "First Portfolio ",
     link: "https://github.com/glenasare/Movie-Database ",
     image: `${firstProject}`,
     description:" This project was built using react-js and python backend. And also utilized google authentication.",
