@@ -37,21 +37,21 @@ export const Data = [
   },
   {
     project_name: "First Portfolio ",
-    link: "https://github.com/glenasare/Movie-Database ",
+    link: "https://github.com/glenasare/project_portfolio ",
     image: `${firstProject}`,
     description:" This project was built using react-js and python backend. And also utilized google authentication.",
     live: ""
   },
   {
     project_name: "Bliss Records ",
-    link: "https://github.com/glenasare/Movie-Database ",
+    link: "https://github.com/glenasare/BlissRecords",
     image: `${bliss}`,
     description:" This is a Record Label Website it was built using ReactJs and Python Backend",
     live: "https://blissrecords.net/"
   },
   {
     project_name: "Smart Home Dashboard",
-    link: "https://github.com/glenasare/Movie-Database ",
+    link: "https://github.com/glenasare/my-smarthome",
     image: `${smartHome}`,
     description:" This is a Dashboard that was build with ReactJs Framework. *NOT Mobile Responsive yet work is still in progress",
     live: "https://smarthomep.netlify.app/"
