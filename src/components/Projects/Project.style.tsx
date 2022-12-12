@@ -9,6 +9,8 @@ export const Containter = styled.div`
     display: grid;
     grid-template-columns: auto ;
     padding: 10px;
+    
+   
 
 }
 
@@ -46,4 +48,5 @@ export const GridItems = styled.div`
   padding: 20px;
   font-size: 30px;
   text-align: center;
+  
 `;

@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 
 export const AboutContent = styled.div`
-    justify-content:flex-start;
-    align-items:flex-start;
+    justify-content:center;
+    align-items:center;
     display:flex;
     color:#fff;
     min-height:30rem;
@@ -29,12 +29,10 @@ export const Imagestyle = {
     
 }
 export const AboutText = styled.h4`
-    /* display:flex;
-    justify-content:center;
-    align-items:center; */
+   width:80%;
     
     @media only screen and (max-width: 768px) {
-    width:100%;
+    width:80%;
     font-size:20px;
     display:flex;
     justify-content:flex-end;

@@ -5,6 +5,7 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { GrMenu } from "react-icons/gr";
 import { NavLi } from "./Navbar.style";
+import LoginForm from "./LoginForm";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
@@ -15,6 +16,15 @@ export default function HamburgerMenu() {
     bottom: false,
     right: false,
   });
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    
+  };
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -53,7 +63,7 @@ export default function HamburgerMenu() {
       </List>
       <Divider />
       <List>
-      <NavLi
+        <NavLi
           style={{ display: "flex" }}
           to="about"
           activeClass="active"
@@ -64,11 +74,10 @@ export default function HamburgerMenu() {
         >
           About
         </NavLi>
-        
       </List>
       <Divider />
       <List>
-      <NavLi
+        <NavLi
           style={{ display: "flex" }}
           to="projects"
           activeClass="active"
@@ -79,11 +88,10 @@ export default function HamburgerMenu() {
         >
           Projects
         </NavLi>
-       
       </List>
       <Divider />
       <List>
-      <NavLi
+        <NavLi
           style={{ display: "flex" }}
           to="contact"
           activeClass="active"
@@ -94,9 +102,21 @@ export default function HamburgerMenu() {
         >
           Contact Me
         </NavLi>
-        
       </List>
       <Divider />
+      <List>
+        <NavLi
+          style={{ display: "flex" }}
+          to="contact"
+          activeClass="active"
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+        >
+          <span onClick={handleClickOpen}>Login</span>
+        </NavLi>
+      </List>
     </Box>
   );
 
@@ -116,6 +136,7 @@ export default function HamburgerMenu() {
           >
             {list(anchor)}
           </SwipeableDrawer>
+          <LoginForm open={open} onClose={handleClose} />
         </React.Fragment>
       ))}
     </div>

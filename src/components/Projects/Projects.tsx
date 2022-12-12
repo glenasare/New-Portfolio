@@ -9,7 +9,7 @@ import { Data } from "./ProjectData";
 import backgroundImage from "../common/images/ProjectBackground.jpg";
 
 function Projects() {
-  console.log(Data.map((items: any) => items.project_name));
+
   return (
     <div
       id="projects"
@@ -28,11 +28,11 @@ function Projects() {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
           backgroundSize: "cover",
-          width: "100%",
+          width: "100%"
         }}
       >
-        {Data.map((items: any) => (
-          <GridItems>
+        {Data.map((items: any, index: any) => (
+          <GridItems key={index}>
             <Card sx={{ maxWidth: 345, maxHeight: 400 }}>
             <a href={items.link} target="blank" style={{textDecoration:'none',color:'#000'}}>
               <CardActionArea>
