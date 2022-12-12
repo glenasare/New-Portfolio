@@ -24,6 +24,7 @@ function Navbar() {
   axios.defaults.withCredentials = true;
   const getData = React.useCallback(async () => {
     console.log("useCallBack");
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
       .get("//localhost:5000/")
       .then(async (response) => {
@@ -52,6 +53,7 @@ function Navbar() {
   console.log(userData);
 
   const logOut = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
       .get("//localhost:5000/logout")
       .then((response) => {

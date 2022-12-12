@@ -1,10 +1,10 @@
 import * as React from "react";
 import Dialog from '@mui/material/Dialog';
-import Typography from "@mui/material/Typography";
+
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import { Modal, TextField } from "@mui/material";
+
+import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { GrSend } from "react-icons/gr";
 
