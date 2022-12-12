@@ -46,6 +46,7 @@ function Navbar() {
           });
         }
       });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   React.useEffect(() => {
     getData();
@@ -61,7 +62,7 @@ function Navbar() {
         window.location.reload();
       });
   };
-  console.log(user);
+ 
 
   const login = user ? <span onClick={handleClickOpen}>Login</span> : " ";
   const logout = user ? " " : <span onClick={logOut}>Logout</span>;
