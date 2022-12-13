@@ -1,12 +1,14 @@
 import React from "react";
 import { AboutContent, AboutText, Imagestyle } from "./About.style";
 import ProfileImage from "../common/images/Profile-pic.jpg";
+import "./About.css"
 
 function About() {
   return (
     <div
       id="about"
-      style={{ backgroundColor: "#000", height: "100%", margin: "0px",width:"100%",overflow:"hidden",padding:'0px' }}
+      className="about"
+      style={{ backgroundColor: "#635858", height: "100%", margin: "0px",width:"100%",overflow:"hidden",padding:'0px' }}
     >
       <AboutContent>
         <img src={ProfileImage} alt="/" style={{ ...Imagestyle }} />

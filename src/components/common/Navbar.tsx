@@ -47,11 +47,10 @@ function Navbar() {
         }
       });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
   React.useEffect(() => {
     getData();
   }, [getData]);
-  console.log(userData);
 
   const logOut = async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -140,7 +139,7 @@ function Navbar() {
 
           <NavMenu>
             {" "}
-            <HamburgerMenu />
+            <HamburgerMenu userdata= {userData} user={user} login={login} logout={logout} logOut={logOut}/>
           </NavMenu>
         </NavUl>
       </NavMain>

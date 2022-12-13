@@ -7,9 +7,12 @@ import { GrMenu } from "react-icons/gr";
 import { NavLi } from "./Navbar.style";
 import LoginForm from "./LoginForm";
 
+
 type Anchor = "top" | "left" | "bottom" | "right";
 
-export default function HamburgerMenu() {
+export default function HamburgerMenu(props: any) {
+  console.log(props.userdata);
+
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -17,13 +20,9 @@ export default function HamburgerMenu() {
     right: false,
   });
   const [open, setOpen] = React.useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
-    
   };
 
   const toggleDrawer =
@@ -103,6 +102,7 @@ export default function HamburgerMenu() {
           Contact Me
         </NavLi>
       </List>
+
       <Divider />
       <List>
         <NavLi
@@ -114,9 +114,36 @@ export default function HamburgerMenu() {
           offset={-70}
           duration={500}
         >
-          <span onClick={handleClickOpen}>Login</span>
+          {props.userdata?.map((items: any) => (
+            <>
+              <span>{items.first_name}</span>
+
+              <span style={{paddingLeft:'3px'}}> {items.last_name}</span>
+            </>
+          ))}
         </NavLi>
       </List>
+
+      <Divider />
+      <List>
+        <NavLi
+          style={{ display: "flex" }}
+          to="contact"
+          activeClass="active"
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+        >
+          <span>
+            {" "}
+            {props.login}
+            {props.logout}
+          </span>
+        </NavLi>
+      </List>
+
+      <Divider />
     </Box>
   );
 

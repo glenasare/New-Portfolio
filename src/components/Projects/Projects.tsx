@@ -8,6 +8,7 @@ import { Button, CardActionArea, CardActions } from "@mui/material";
 import { Data } from "./ProjectData";
 import backgroundImage from "../common/images/ProjectBackground.jpg";
 
+
 function Projects() {
 
   return (
@@ -22,6 +23,7 @@ function Projects() {
         margin: "0",
       }}
     >
+      
       <Containter
         style={{
           backgroundImage: `url(${backgroundImage})`,
@@ -63,6 +65,7 @@ function Projects() {
           </GridItems>
         ))}
       </Containter>
+     
     </div>
   );
 }
