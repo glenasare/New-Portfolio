@@ -25,28 +25,26 @@ function Navbar() {
   const getData = React.useCallback(async () => {
     console.log("useCallBack");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient
-      .get("https://my-app-flaskk.herokuapp.com/")
-      .then(async (response) => {
-        if (response.status === 401) {
-          await httpClient.get("https://my-app-flaskk.herokuapp.com/user").then((response) => {
-            if (response.status === 200) {
-              console.log("Logging In...");
-              setUser(false);
-            }
-          });
-        } else if (response.status === 200) {
-          setUser(false);
-          console.log("Already Logged In", user);
-          await httpClient.get("https://my-app-flaskk.herokuapp.com/user").then((response) => {
-            if (response.status === 200) {
-              console.log("Getting User Info...");
-              setUserData(response.data);
-            }
-          });
-        }
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    const resp = await httpClient.get("/").then(async (response) => {
+      if (response.status === 401) {
+        await httpClient.get("/user").then((response) => {
+          if (response.status === 200) {
+            console.log("Logging In...");
+            setUser(false);
+          }
+        });
+      } else if (response.status === 200) {
+        setUser(false);
+        console.log("Already Logged In", user);
+        await httpClient.get("/user").then((response) => {
+          if (response.status === 200) {
+            console.log("Getting User Info...");
+            setUserData(response.data);
+          }
+        });
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   React.useEffect(() => {
     getData();
@@ -54,14 +52,17 @@ function Navbar() {
 
   const logOut = async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    axios.defaults.baseURL = "https://my-app-flaskk.herokuapp.com";
+    // Set the default credentials for the request
+    axios.defaults.withCredentials = true;
     const resp = await httpClient
       .get("https://my-app-flaskk.herokuapp.com/logout")
       .then((response) => {
-        if (response.status === 200) setUser(true);
-        window.location.reload();
+        if (response.status === 202) setUser(true);
+        // window.location.reload();
       });
   };
- 
+  console.log(document.cookie);
 
   const login = user ? <span onClick={handleClickOpen}>Login</span> : " ";
   const logout = user ? " " : <span onClick={logOut}>Logout</span>;
@@ -139,11 +140,17 @@ function Navbar() {
 
           <NavMenu>
             {" "}
-            <HamburgerMenu userdata= {userData} user={user} login={login} logout={logout} logOut={logOut}/>
+            <HamburgerMenu
+              userdata={userData}
+              user={user}
+              login={login}
+              logout={logout}
+              logOut={logOut}
+            />
           </NavMenu>
         </NavUl>
       </NavMain>
-      <LoginForm open={open} onClose={handleClose}/>
+      <LoginForm open={open} onClose={handleClose} />
     </div>
   );
 }

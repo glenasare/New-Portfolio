@@ -10,6 +10,7 @@ import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
 import httpClient from "./httpClient";
+import axios from "axios";
 
 export interface SimpleDialogProps {
     open: boolean;
@@ -29,14 +30,16 @@ function LoginForm(props: SimpleDialogProps) {
 
   const [error, setError] = React.useState<any>("");
 
+  axios.defaults.baseURL = "https://my-app-flaskk.herokuapp.com";
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const { email, password } = values;
     const user = { email, password };
+    
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .post("https://my-app-flaskk.herokuapp.com/login", user)
+      .post("/login", user)
       .then((response) => {
         if (response.status === 200) {
           window.location.reload();
