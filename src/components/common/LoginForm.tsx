@@ -36,7 +36,7 @@ function LoginForm(props: SimpleDialogProps) {
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .post("//localhost:5000/login", user)
+      .post("https://my-app-flaskk.herokuapp.com/login", user)
       .then((response) => {
         if (response.status === 200) {
           window.location.reload();

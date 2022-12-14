@@ -18,7 +18,7 @@ function Navbar() {
     setOpen(false);
   };
 
-  axios.defaults.baseURL = "http://127.0.0.1:5000";
+  axios.defaults.baseURL = "https://my-app-flaskk.herokuapp.com";
 
   // Set the default credentials for the request
   axios.defaults.withCredentials = true;
@@ -26,10 +26,10 @@ function Navbar() {
     console.log("useCallBack");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .get("//localhost:5000/")
+      .get("https://my-app-flaskk.herokuapp.com/")
       .then(async (response) => {
         if (response.status === 401) {
-          await httpClient.get("//localhost:5000/user").then((response) => {
+          await httpClient.get("https://my-app-flaskk.herokuapp.com/user").then((response) => {
             if (response.status === 200) {
               console.log("Logging In...");
               setUser(false);
@@ -38,7 +38,7 @@ function Navbar() {
         } else if (response.status === 200) {
           setUser(false);
           console.log("Already Logged In", user);
-          await httpClient.get("//localhost:5000/user").then((response) => {
+          await httpClient.get("https://my-app-flaskk.herokuapp.com/user").then((response) => {
             if (response.status === 200) {
               console.log("Getting User Info...");
               setUserData(response.data);
@@ -55,7 +55,7 @@ function Navbar() {
   const logOut = async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .get("//localhost:5000/logout")
+      .get("https://my-app-flaskk.herokuapp.com/logout")
       .then((response) => {
         if (response.status === 200) setUser(true);
         window.location.reload();

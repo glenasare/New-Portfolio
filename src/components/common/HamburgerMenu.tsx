@@ -118,7 +118,7 @@ export default function HamburgerMenu(props: any) {
             <>
               <span>{items.first_name}</span>
 
-              <span style={{paddingLeft:'3px'}}> {items.last_name}</span>
+              <span style={{paddingLeft:'3px'}}> {items.last_name ? items.last_name : "User"}</span>
             </>
           ))}
         </NavLi>
