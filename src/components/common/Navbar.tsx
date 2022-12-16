@@ -54,6 +54,7 @@ function Navbar() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // Set the default credentials for the request
     axios.defaults.withCredentials = true;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
       .get("https://api.glenasare.com/logout")
       .then((response) => {
