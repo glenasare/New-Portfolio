@@ -18,16 +18,16 @@ function Navbar() {
     setOpen(false);
   };
 
-  axios.defaults.baseURL = "https://my-app-flaskk.herokuapp.com";
 
   // Set the default credentials for the request
   axios.defaults.withCredentials = true;
   const getData = React.useCallback(async () => {
     console.log("useCallBack");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient.get("/").then(async (response) => {
+    const resp = await httpClient.get("https://api.glenasare.com").then(async (response) => {
+      console.log(response.status)
       if (response.status === 401) {
-        await httpClient.get("/user").then((response) => {
+        await httpClient.get("https://api.glenasare.com/user").then((response) => {
           if (response.status === 200) {
             console.log("Logging In...");
             setUser(false);
@@ -36,7 +36,7 @@ function Navbar() {
       } else if (response.status === 200) {
         setUser(false);
         console.log("Already Logged In", user);
-        await httpClient.get("/user").then((response) => {
+        await httpClient.get("https://api.glenasare.com/user").then((response) => {
           if (response.status === 200) {
             console.log("Getting User Info...");
             setUserData(response.data);
@@ -52,14 +52,13 @@ function Navbar() {
 
   const logOut = async () => {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    axios.defaults.baseURL = "https://my-app-flaskk.herokuapp.com";
     // Set the default credentials for the request
     axios.defaults.withCredentials = true;
     const resp = await httpClient
-      .get("https://my-app-flaskk.herokuapp.com/logout")
+      .get("https://api.glenasare.com/logout")
       .then((response) => {
         if (response.status === 202) setUser(true);
-        // window.location.reload();
+        window.location.reload();
       });
   };
   console.log(document.cookie);
