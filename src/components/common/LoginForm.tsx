@@ -10,6 +10,7 @@ import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
 import httpClient from "./httpClient";
+import axios from "axios";
 
 
 
@@ -115,7 +116,7 @@ function LoginForm(props: SimpleDialogProps) {
                     variant="contained"
                     type="submit"
                   >
-                    Send{" "}
+                    Submit{" "}
                     <GrSend style={{ fontSize: "20px", paddingLeft: "10px" }} />
                   </Button>
                 </Grid>

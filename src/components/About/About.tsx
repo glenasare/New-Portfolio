@@ -14,20 +14,20 @@ function About() {
         <img src={ProfileImage} alt="/" style={{ ...Imagestyle }} />
         
       <AboutText>
-        My name is Glen Asare, and I'm a Software Engineer with 3 years of
-        Experience. In my professional experience I have used many tools and
+        My name is Glen Asare, and I'm a Software Engineer with 3 years of professional
+        experience. In my 3 years of experience I have used many tools and
         applications to solve business problems. I have gained great experience
         by working closely with other engineers. What makes me a great developer
-        is the ability to use my soft skills which was gained while working as a
+        is the ability to use my soft skills which have been gained while working as an
         IT analyst. I have strong passion for coding especially in the Front
-        End. What makes me stand out is the ability to be dynamic when needed,
-        which helps my team a-lot. My career goal is to one day become an
+        End. Something that makes me stand out is my ability to be dynamic at adapting quickly to different technologies,
+        which is beneficial to my team. My career goal is to one day become an
         individual contributor, while helping out the community with people who
-        are willing to transition into tech. So far in my 3 years of being a
-        developer
+        are have an interest in transitioning into tech. So far in my 3 years of being a
+        developer I have gained knowledge with the use of the following tools;
       </AboutText>
       <AboutText>
-        I have gained knowledge with the use of React(JS/TS), AWS,
+        React(JS/TS), AWS,
         Github(CI/CD), GIT, Python(Serverless), Database(Postgre/ DynamoDb) ,
         Testing (Jest/Lighthouse), Agile Methodologies,Logs(
         Datadog/CloudWatch/LogRocket)
