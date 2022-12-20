@@ -24,10 +24,10 @@ function Navbar() {
   const getData = React.useCallback(async () => {
     console.log("useCallBack");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient.get("https://api.glenasare.com").then(async (response) => {
+    const resp = await httpClient.get("https://my-app-flaskk.herokuapp.com/").then(async (response) => {
       console.log(response.status)
       if (response.status === 401) {
-        await httpClient.get("https://api.glenasare.com/user").then((response) => {
+        await httpClient.get("https://my-app-flaskk.herokuapp.com//user").then((response) => {
           if (response.status === 200) {
             console.log("Logging In...");
             setUser(false);
@@ -36,7 +36,7 @@ function Navbar() {
       } else if (response.status === 200) {
         setUser(false);
         console.log("Already Logged In", user);
-        await httpClient.get("https://api.glenasare.com/user").then((response) => {
+        await httpClient.get("https://my-app-flaskk.herokuapp.com//user").then((response) => {
           if (response.status === 200) {
             console.log("Getting User Info...");
             setUserData(response.data);
@@ -56,7 +56,7 @@ function Navbar() {
     axios.defaults.withCredentials = true;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .get("https://api.glenasare.com/logout")
+      .get("http://127.0.0.1:5000/logout")
       .then((response) => {
         if (response.status === 202) setUser(true);
         window.location.reload();

@@ -10,7 +10,7 @@ import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
 import httpClient from "./httpClient";
-
+import axios from "axios";
 
 
 
@@ -44,18 +44,17 @@ function LoginForm(props: SimpleDialogProps) {
       
         
     
-    
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .post("https://api.glenasare.com/login", user)
+      .post("https://my-app-flaskk.herokuapp.com/login", user)
       
       .then((response) => {
         console.log(response.status)
         if (response.status === 200) {
           console.log("200")
           
-          window.location.href = ("https://api.glenasare.com/verify-mobile")
+          window.location.href = ("https://my-app-flaskk.herokuapp.com/verify-mobile")
         }
       })
       .catch((error) => setError(error.response.data));
