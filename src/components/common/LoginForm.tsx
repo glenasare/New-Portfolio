@@ -10,7 +10,7 @@ import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
 import httpClient from "./httpClient";
-import axios from "axios";
+
 
 
 
