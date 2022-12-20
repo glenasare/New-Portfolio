@@ -10,6 +10,7 @@ import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
 import httpClient from "./httpClient";
+import axios from "axios";
 
 
 
@@ -38,6 +39,11 @@ function LoginForm(props: SimpleDialogProps) {
     e.preventDefault();
     const { email, password } = values;
     const user = { email, password };
+
+ 
+      
+        
+    
     
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -45,7 +51,10 @@ function LoginForm(props: SimpleDialogProps) {
       .post("https://api.glenasare.com/login", user)
       
       .then((response) => {
+        console.log(response.status)
         if (response.status === 200) {
+          console.log("200")
+          
           window.location.href = ("https://api.glenasare.com/verify-mobile")
         }
       })
