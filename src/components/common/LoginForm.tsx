@@ -15,7 +15,6 @@ import httpClient from "./httpClient";
 
 
 
-
 export interface SimpleDialogProps {
     open: boolean;
     onClose: (value: any) => void;

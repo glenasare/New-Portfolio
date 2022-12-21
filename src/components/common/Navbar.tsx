@@ -18,32 +18,22 @@ function Navbar() {
     setOpen(false);
   };
 
-
   // Set the default credentials for the request
   axios.defaults.withCredentials = true;
   const getData = React.useCallback(async () => {
     console.log("useCallBack");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient.get("https://my-app-flaskk.herokuapp.com/").then(async (response) => {
-      console.log(response.status)
-      if (response.status === 401) {
-        await httpClient.get("https://my-app-flaskk.herokuapp.com//user").then((response) => {
-          if (response.status === 200) {
-            console.log("Logging In...");
-            setUser(false);
-          }
-        });
-      } else if (response.status === 200) {
-        setUser(false);
-        console.log("Already Logged In", user);
-        await httpClient.get("https://my-app-flaskk.herokuapp.com//user").then((response) => {
-          if (response.status === 200) {
-            console.log("Getting User Info...");
-            setUserData(response.data);
-          }
-        });
-      }
-    });
+    const resp = await httpClient
+      .get("https://my-app-flaskk.herokuapp.com/user")
+      .then((response) => {
+        console.log(response.status)
+        if (response.status === 200) {
+          console.log("Getting User Info...");
+          setUser(false);
+          setUserData(response.data);
+        }
+      });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
   React.useEffect(() => {
@@ -56,7 +46,7 @@ function Navbar() {
     axios.defaults.withCredentials = true;
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const resp = await httpClient
-      .get("http://127.0.0.1:5000/logout")
+      .get("https://my-app-flaskk.herokuapp.com/logout")
       .then((response) => {
         if (response.status === 202) setUser(true);
         window.location.reload();
@@ -120,7 +110,7 @@ function Navbar() {
             offset={-70}
             duration={500}
           >
-            {userData.map((item: any) => (
+            {userData?.map((item: any) => (
               <>
                 <span>{item.first_name}</span> <span>{item.last_name}</span>
               </>
