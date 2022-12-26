@@ -45,6 +45,7 @@ export default function LoginForm(props: SimpleDialogProps) {
   });
 
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = React.useState<any>("");
 
   const handleLogin = async (e: any) => {

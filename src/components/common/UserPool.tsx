@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { CognitoUserPool } from "amazon-cognito-identity-js";
 
 
@@ -23,11 +23,12 @@ export default function useHandler() {
   
     const { loading, isAuthenticated } = state;
   
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const userPool = new CognitoUserPool(poolData);
   
     const getAuthenticatedUser = useCallback(() => {
       return userPool.getCurrentUser();
-    }, []);
+    }, [userPool]);
   
     console.log(getAuthenticatedUser());
   
