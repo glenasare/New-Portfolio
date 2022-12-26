@@ -2,13 +2,38 @@ import React from "react";
 import { Logo, NavLi, NavMain, NavMenu, NavUl } from "./Navbar.style";
 import HamburgerMenu from "./HamburgerMenu";
 import LoginForm from "./LoginForm";
-import axios from "axios";
-import httpClient from "./httpClient";
+import useHandler from "./UserPool";
+
 
 function Navbar() {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(true);
-  const [userData, setUserData] = React.useState([]);
+  const [userData, setUserData] = React.useState<any>("");
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { userPool,getAuthenticatedUser } = useHandler();
+
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const getUserSession = React.useCallback(() => {
+    if (getAuthenticatedUser()?.getUsername()){
+      setUser(false)
+      setUserData(getAuthenticatedUser()?.getUsername())
+    }
+  }, [getAuthenticatedUser]);
+  
+  React.useEffect(() => {
+    getUserSession();
+  }, [getUserSession]);
+
+  
+  
+
+
+  
+  
+
+  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,41 +43,13 @@ function Navbar() {
     setOpen(false);
   };
 
-  // Set the default credentials for the request
-  axios.defaults.withCredentials = true;
-  const getData = React.useCallback(async () => {
-    console.log("useCallBack");
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient
-      .get("https://my-app-flaskk.herokuapp.com/user")
-      .then((response) => {
-        console.log(response.status)
-        if (response.status === 200) {
-          console.log("Getting User Info...");
-          setUser(false);
-          setUserData(response.data);
-        }
-      });
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
-  React.useEffect(() => {
-    getData();
-  }, [getData]);
+  const logOut = () => {
+    console.log("userSign Out")
+    getAuthenticatedUser()?.signOut()
+    window.location.reload()
+  }
 
-  const logOut = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // Set the default credentials for the request
-    axios.defaults.withCredentials = true;
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient
-      .get("https://my-app-flaskk.herokuapp.com/logout")
-      .then((response) => {
-        if (response.status === 202) setUser(true);
-        window.location.reload();
-      });
-  };
-  console.log(document.cookie);
 
   const login = user ? <span onClick={handleClickOpen}>Login</span> : " ";
   const logout = user ? " " : <span onClick={logOut}>Logout</span>;
@@ -110,11 +107,13 @@ function Navbar() {
             offset={-70}
             duration={500}
           >
-            {userData?.map((item: any) => (
+            {/* {[userData]?.map((item: any) => (
               <>
                 <span>{item.first_name}</span> <span>{item.last_name}</span>
               </>
-            ))}
+            ))} */}
+            {userData}
+            
           </NavLi>
           <NavLi
             to=""
@@ -126,6 +125,7 @@ function Navbar() {
           >
             {login}
             {logout}
+           
           </NavLi>
 
           <NavMenu>
@@ -134,13 +134,12 @@ function Navbar() {
               userdata={userData}
               user={user}
               login={login}
-              logout={logout}
-              logOut={logOut}
+             
             />
           </NavMenu>
         </NavUl>
       </NavMain>
-      <LoginForm open={open} onClose={handleClose} />
+      <LoginForm open={open} onClose={handleClose}/>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import Dialog from '@mui/material/Dialog';
+import Dialog from "@mui/material/Dialog";
 
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -9,83 +9,153 @@ import Button from "@mui/material/Button";
 import { GrSend } from "react-icons/gr";
 
 import { Form } from "../Contact/Contact.style";
-import httpClient from "./httpClient";
-
-
-
-
+import {
+  CognitoUser,
+  AuthenticationDetails,
+  CognitoUserAttribute,
+  CognitoUserSession,
+} from "amazon-cognito-identity-js";
+import { useNavigate,useParams } from "react-router-dom";
+import useHandler from "./UserPool";
+// import { useQuery } from "react-query";
 
 export interface SimpleDialogProps {
-    open: boolean;
-    onClose: (value: any) => void;
-  }
+  open: boolean;
+  onClose: (value: any) => void;
+}
 type Credentials = {
   email: string;
   password: string;
+  name: string;
+  preferred_username: string;
 };
-function LoginForm(props: SimpleDialogProps) {
-    const { onClose,  open } = props;
- 
- 
+export default function LoginForm(props: SimpleDialogProps) {
+
+  const { userPool } = useHandler();
+  let history = useNavigate();
+  const params = useParams()
+  const { onClose, open } = props;
+  const [signup, setSignUp] = React.useState<any>(true);
+
   const [values, setValues] = React.useState<Credentials>({
     email: "",
     password: "",
+    name: "",
+    preferred_username: "",
   });
+
 
   const [error, setError] = React.useState<any>("");
 
-  const handleSubmit = async (e: any) => {
+  const handleLogin = async (e: any) => {
     e.preventDefault();
     const { email, password } = values;
-    const user = { email, password };
-
- 
-      
-        
     
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const resp = await httpClient
-      .post("https://my-app-flaskk.herokuapp.com/login", user)
-      
-      .then((response) => {
-        console.log(response.status)
-        if (response.status === 200) {
-          console.log("200")
-          
-          window.location.href = ("https://my-app-flaskk.herokuapp.com/verify-mobile")
+
+    const userData:any = {
+      Username: email,
+      Pool: userPool
+    };
+
+    const userCred = new CognitoUser(userData);
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+
+    });
+
+    userCred.authenticateUser(authDetails, {
+      onSuccess: (result: CognitoUserSession) => {
+        console.log({ result });
+        if (result) {
+          onClose(false)
+          history("/")
+          console.log(params)
         }
-      })
-      .catch((error) => setError(error.response.data));
+     
+      },
+      onFailure: (err) => {
+        console.log("onFailure: ", err);
+      },
+      newPasswordRequired: (data) => {
+        console.log("newPasswordRequired: ", data);
+      },
+    });
+
+    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // const resp = await httpClient
+    //   .post("https://my-app-flaskk.herokuapp.com/login", user)
+
+    //   .then((response) => {
+    //     console.log(response.status)
+    //     if (response.status === 200) {
+    //       console.log("200")
+
+    //       window.location.href = ("https://my-app-flaskk.herokuapp.com/verify-mobile")
+    //     }
+    //   })
+    //   .catch((error) => setError(error.response.data));
+  };
+  const handleSignUp = async (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault();
+    const { email, password, name, preferred_username } = values;
+  
+    const userEmail = new CognitoUserAttribute({
+      Name: "email",
+      Value: email,
+    });
+    const usersName = new CognitoUserAttribute({
+      Name: "name",
+      Value: name,
+    });
+    const preferred_Username = new CognitoUserAttribute({
+      Name: "preferred_username",
+      Value: preferred_username,
+    });
+
+    userPool.signUp(
+      email,
+      password,
+      [userEmail, usersName, preferred_Username],
+      [],
+      (err: any, data: any) => {
+        if (err) {
+          console.error(err);
+        }
+        if (data) {
+          window.location.reload();
+        }
+      }
+    );
   };
 
   const handleClose = () => {
     onClose(false);
   };
 
-
-
   const handleChange = (email: any) => (e: any) => {
     setValues({ ...values, [email]: e.target.value });
   };
 
-
+  const handleClick = () => {
+    setSignUp(!signup);
+  };
 
   return (
-    <div >
+    <div>
       {" "}
-      <Dialog onClose={handleClose} open={open} sx={{height:'100%'}}>
-      <Box>
-        <Form onSubmit={handleSubmit}>
-         
-            <Box sx={{ width: "100%",height:'400px' }}>
+      <Dialog onClose={handleClose} open={open} sx={{ height: "100%" }}>
+        <Box>
+          <Form onSubmit={signup ? handleLogin : handleSignUp}>
+            <Box sx={{ width: "100%", height: "400px" }}>
               <h3
                 style={{
                   justifyContent: "center",
                   display: "flex",
                 }}
               >
-                Login
+                {signup ? "Login" : "SignUp"}
               </h3>
               <Grid
                 container
@@ -96,6 +166,7 @@ function LoginForm(props: SimpleDialogProps) {
                 <Grid item xs={6}>
                   <TextField
                     id="outlined-basic"
+                    required
                     value={values.email}
                     onChange={handleChange("email")}
                     type="email"
@@ -108,6 +179,7 @@ function LoginForm(props: SimpleDialogProps) {
                 <Grid item xs={6}>
                   <TextField
                     value={values.password}
+                    required
                     onChange={handleChange("password")}
                     type="password"
                     name="password"
@@ -117,26 +189,61 @@ function LoginForm(props: SimpleDialogProps) {
                     sx={{ width: "100%" }}
                   />
                 </Grid>
+                {signup ? (
+                  " "
+                ) : (
+                  <>
+                    <Grid item xs={6}>
+                      <TextField
+                        value={values.name}
+                        required
+                        onChange={handleChange("name")}
+                        type="text"
+                        name="name"
+                        id="outlined-basic"
+                        label="Name"
+                        variant="outlined"
+                        sx={{ width: "100%" }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        value={values.preferred_username}
+                        required
+                        onChange={handleChange("preferred_username")}
+                        type="text"
+                        name="preferred_username"
+                        id="outlined-basic"
+                        label="UserName"
+                        variant="outlined"
+                        sx={{ width: "100%" }}
+                      />
+                    </Grid>
+                  </>
+                )}
                 <Grid item xs={12}>
                   <Button
                     sx={{ width: "100%" }}
                     variant="contained"
                     type="submit"
                   >
-                    Submit{" "}
+                    Submits{" "}
                     <GrSend style={{ fontSize: "20px", paddingLeft: "10px" }} />
                   </Button>
                 </Grid>
+                <p
+                  onClick={handleClick}
+                  style={{ color: "blue", cursor: "pointer" }}
+                >
+                  {" "}
+                  {signup ? "Sign Up" : "Login"}
+                </p>
                 <p style={{ color: "red" }}>{Object.values(error)}</p>
               </Grid>
             </Box>
-      
-       
-        </Form>
-      </Box>
-    </Dialog>
+          </Form>
+        </Box>
+      </Dialog>
     </div>
   );
 }
-
-export default LoginForm;

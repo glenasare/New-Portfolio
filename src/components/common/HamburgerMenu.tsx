@@ -11,7 +11,6 @@ import LoginForm from "./LoginForm";
 type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function HamburgerMenu(props: any) {
-  console.log(props.userdata);
 
   const [state, setState] = React.useState({
     top: false,
@@ -24,6 +23,7 @@ export default function HamburgerMenu(props: any) {
   const handleClose = () => {
     setOpen(false);
   };
+
 
   const toggleDrawer =
     (anchor: Anchor, open: boolean) =>
@@ -114,13 +114,7 @@ export default function HamburgerMenu(props: any) {
           offset={-70}
           duration={500}
         >
-          {props.userdata?.map((items: any) => (
-            <>
-              <span>{items.first_name}</span>
-
-              <span style={{paddingLeft:'3px'}}> {items.last_name ? items.last_name : "User"}</span>
-            </>
-          ))}
+          {props.userData}
         </NavLi>
       </List>
 
@@ -163,7 +157,7 @@ export default function HamburgerMenu(props: any) {
           >
             {list(anchor)}
           </SwipeableDrawer>
-          <LoginForm open={open} onClose={handleClose} />
+          <LoginForm open={open} onClose={handleClose}  />
         </React.Fragment>
       ))}
     </div>
