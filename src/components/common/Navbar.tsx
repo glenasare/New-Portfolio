@@ -1,39 +1,38 @@
 import React from "react";
 import { Logo, NavLi, NavMain, NavMenu, NavUl } from "./Navbar.style";
 import HamburgerMenu from "./HamburgerMenu";
-import LoginForm from "./LoginForm";
-import useHandler from "./UserPool";
-
+import LoginForm from "./VerficationForm";
+import useHandler, { fetchUserAttributes } from "./UserPool";
+import useFetchData from "./useFetchData";
 
 function Navbar() {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState(true);
   const [userData, setUserData] = React.useState<any>("");
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { userPool,getAuthenticatedUser } = useHandler();
 
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { userPool, getAuthenticatedUser} = useHandler();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const getUserSession = React.useCallback(() => {
-    if (getAuthenticatedUser()?.getUsername()){
-      setUser(false)
-      setUserData(getAuthenticatedUser()?.getUsername())
+    if (getAuthenticatedUser()?.getUsername()) {
+      setUser(false);
+      setUserData(getAuthenticatedUser()?.getUsername());
     }
+
   }, [getAuthenticatedUser]);
+
+
+ 
   
+
   React.useEffect(() => {
-    getUserSession();
+    getUserSession()
+
   }, [getUserSession]);
 
-  
-  
-
-
-  
-  
-
-  
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,13 +42,16 @@ function Navbar() {
     setOpen(false);
   };
 
-
   const logOut = () => {
-    console.log("userSign Out")
-    getAuthenticatedUser()?.signOut()
-    window.location.reload()
-  }
+    console.log("userSign Out");
+    getAuthenticatedUser()?.signOut();
+    window.location.reload();
+  };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { data, isLoading, error } = useFetchData('userAttributes', fetchUserAttributes);
 
+
+  const getUser =  (isLoading ? 'Loading...' : data ? data.idToken.payload.name : 'UserName')
 
   const login = user ? <span onClick={handleClickOpen}>Login</span> : " ";
   const logout = user ? " " : <span onClick={logOut}>Logout</span>;
@@ -112,8 +114,7 @@ function Navbar() {
                 <span>{item.first_name}</span> <span>{item.last_name}</span>
               </>
             ))} */}
-            {userData}
-            
+            {getUser}
           </NavLi>
           <NavLi
             to=""
@@ -130,16 +131,11 @@ function Navbar() {
 
           <NavMenu>
             {" "}
-            <HamburgerMenu
-              userdata={userData}
-              user={user}
-              login={login}
-             
-            />
+            <HamburgerMenu userdata={userData} user={getUser} login={login} logout={logout} />
           </NavMenu>
         </NavUl>
       </NavMain>
-      <LoginForm open={open} onClose={handleClose}/>
+      <LoginForm open={open} onClose={handleClose} />
     </div>
   );
 }

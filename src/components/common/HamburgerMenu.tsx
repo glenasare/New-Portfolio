@@ -5,7 +5,9 @@ import List from "@mui/material/List";
 import Divider from "@mui/material/Divider";
 import { GrMenu } from "react-icons/gr";
 import { NavLi } from "./Navbar.style";
-import LoginForm from "./LoginForm";
+import LoginForm from "./VerficationForm";
+import useFetchData from "./useFetchData";
+import { fetchUserAttributes } from "./UserPool";
 
 
 type Anchor = "top" | "left" | "bottom" | "right";
@@ -39,6 +41,12 @@ export default function HamburgerMenu(props: any) {
 
       setState({ ...state, [anchor]: open });
     };
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { data, isLoading, error } = useFetchData('userAttributes', fetchUserAttributes);
+
+
+    const getUser =  (isLoading ? 'Loading...' : data ? data.idToken.payload.name : 'No User')
+
 
   const list = (anchor: Anchor) => (
     <Box
@@ -114,7 +122,7 @@ export default function HamburgerMenu(props: any) {
           offset={-70}
           duration={500}
         >
-          {props.userData}
+          {getUser}
         </NavLi>
       </List>
 

@@ -78,25 +78,13 @@ export default function LoginForm(props: SimpleDialogProps) {
       },
       onFailure: (err) => {
         console.log("onFailure: ", err);
+        setError(err)
       },
       newPasswordRequired: (data) => {
         console.log("newPasswordRequired: ", data);
       },
     });
 
-    // // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    // const resp = await httpClient
-    //   .post("https://my-app-flaskk.herokuapp.com/login", user)
-
-    //   .then((response) => {
-    //     console.log(response.status)
-    //     if (response.status === 200) {
-    //       console.log("200")
-
-    //       window.location.href = ("https://my-app-flaskk.herokuapp.com/verify-mobile")
-    //     }
-    //   })
-    //   .catch((error) => setError(error.response.data));
   };
   const handleSignUp = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
@@ -123,6 +111,7 @@ export default function LoginForm(props: SimpleDialogProps) {
       (err: any, data: any) => {
         if (err) {
           console.error(err);
+          window.location.reload()
         }
         if (data) {
           window.location.reload();
@@ -239,8 +228,9 @@ export default function LoginForm(props: SimpleDialogProps) {
                   {" "}
                   {signup ? "Sign Up" : "Login"}
                 </p>
-                <p style={{ color: "red" }}>{Object.values(error)}</p>
+                
               </Grid>
+              <p style={{ color: "red" }}>Error: {Object.values(error)}</p>
             </Box>
           </Form>
         </Box>

@@ -3,7 +3,12 @@ import { AboutContent, AboutText, Imagestyle } from "./About.style";
 import ProfileImage from "../common/images/Profile-pic.jpg";
 import "./About.css"
 
+
 function About() {
+  
+
+
+
   return (
     <div
       id="about"
